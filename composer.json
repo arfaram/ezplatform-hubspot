@@ -2,7 +2,7 @@
   "name": "arfaram/ezplatform-hubspot",
   "type": "ezplatform-bundle",
   "description": "Share content to social media via Hubspot",
-  "keywords": ["ezplatform, Hubspot"],
+  "keywords": ["ezplatform", "Hubspot"],
   "homepage": "https://github.com/arfaram/ezplatform-hubspot",
   "license": "MIT",
   "authors": [
