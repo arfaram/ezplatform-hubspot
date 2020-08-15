@@ -1,0 +1,81 @@
+{% extends "@ezdesign/ui/layout.html.twig" %}
+
+{% trans_default_domain 'views' %}
+
+{% block title %}{{ 'hubspot.view.social.title'|trans|desc('eZ Platform Hubspot Social') }}{% endblock %}
+
+{% block content %}
+    <div class="row align-items-stretch ez-main-row">
+        {% block left_sidebar %}
+            <div class="bg-dark pt-4 px-0 ez-side-menu">
+                <div class="ez-sticky-container">
+                    {% set sidebar_left = knp_menu_get('hubspot.menu.social.sidebar_left', [], {}) %}
+                    {{ knp_menu_render(sidebar_left, {
+                        'template': '@ezdesign/ui/menu/sidebar_left.html.twig'
+                    }) }}
+                </div>
+            </div>
+        {% endblock left_sidebar %}
+
+        <div class="px-0 ez-content-container">
+            <div class="ez-header">
+                <div class="container">
+
+                    {# if view is updated then activate this route agian #}
+                    {#{ value: 'hubspot.view.social'|trans|desc('Social'), url: path('ez_platform_hubspot_social') },#}
+
+                    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+                        { value: 'hubspot.view.Hubspot'|trans|desc('Hubspot') },
+                        { value: 'hubspot.view.social.name'|trans|desc('Social'), url: path('ez_platform_hubspot_social_info') },
+                        { value: 'hubspot.view.social.info'|trans|desc('Info') },
+                    ]} %}
+
+                    {% include '@ezdesign/ui/page_title.html.twig' with {
+                        title: 'hubspot.view.social.info'|trans|desc('Info'),
+                        iconName: 'system-information'
+                    } %}
+
+                </div>
+            </div>
+            <div class="container-fluid ez-main-container container mt-4 px-5">
+
+                {% if access_denied is defined %}
+                    {{ 'hubspot.view.access_denied'|trans|desc('You are not allowed to access this view. Please contact the website adminisrator') }}
+                {% else %}
+
+                    {% if channels is defined and channels %}
+                        <div id="accordion">
+                            {% for channel in channels %}
+                                <div class="card">
+                                    <div class="card-header bg-white">
+                                        {% if channel.avatarUrl %}
+                                            <img src="{{ channel.avatarUrl }}" class="rounded-circle hubspot-info-avatar" title="{{ channel.channelType }}" alt=""/>
+                                        {% else %}
+                                            <img src="/bundles/ezplatformhubspot/img/noimage.png" class="rounded-circle hubspot-info-avatar" title="{{ channel.channelType }}" alt=""/>
+                                        {% endif %}
+                                            <a href="{{ channel.profileUrl }}" target="_blank">
+                                                {{ channel.channelType }}: {{ channel.username }}
+                                            </a>
+                                    </div>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ 'hubspot.view.empty'|trans|desc('No data found') }}
+                    {% endif %}
+
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    {{ encore_entry_link_tags('ezplatform-admin-ui-hubspot-css', null, 'ezplatform') }}
+{% endblock %}
+
+
+

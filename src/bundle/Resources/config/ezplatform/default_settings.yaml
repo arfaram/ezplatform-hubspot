@@ -1,0 +1,2 @@
+parameters:
+    ezsettings.default.hubspot_config.content_types_map: []

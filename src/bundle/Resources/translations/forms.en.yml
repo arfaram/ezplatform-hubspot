@@ -1,0 +1,7 @@
+role.policy.hubspot: 'Hubspot'
+role.policy.hubspot.all_functions: 'Hubspot / All functions'
+role.policy.hubspot.view: 'Hubspot / View'
+role.policy.hubspot.dashboard: 'Hubspot / Dashboard'
+role.policy.hubspot.social: 'Hubspot / Social'
+role.policy.hubspot.settings: 'Hubspot / Settings'
+role.policy.content.create_broadcast: 'Content / Push Hubspot'

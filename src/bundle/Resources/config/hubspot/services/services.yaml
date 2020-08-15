@@ -1,0 +1,31 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    EzPlatform\HubSpot\HubSpot\Factory\Core\HubSpot:
+        calls:
+            - [ getAPIAccessFromStorage ]
+
+    EzPlatform\HubSpotBundle\Entity\HubSpot\ApiKey: ~
+
+    EzPlatform\HubSpot\HubSpot\Services\:
+        resource: '../../../../../lib/HubSpot/Services/*'
+
+    EzPlatform\HubSpot\HubSpot\Services\API\SocialMediaService: '@hubspot.api.service.social_media'
+
+    hubspot.api.service.social_media:
+        alias: EzPlatform\HubSpot\HubSpot\Repository\Event\SocialMediaService
+        public: true
+
+    EzPlatform\HubSpot\HubSpot\Repository\Event\SocialMediaService:
+        arguments:
+            $innerService: '@hubspot.api.service.inner.social_media'
+
+    hubspot.api.service.inner.social_media:
+        class: EzPlatform\HubSpot\HubSpot\Services\SocialMediaService
+        lazy: true
+
+    EzPlatform\HubSpot\HubSpot\Repository\Form\:
+        resource: '../../../../../lib/HubSpot/Repository/Form/*'

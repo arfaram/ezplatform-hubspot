@@ -1,0 +1,44 @@
+ez_platform_hubspot_dashboard:
+    path:     /hubspot/dashboard
+    controller: EzPlatform\HubSpotBundle\Controller\DashboardController:indexAction
+
+#Social
+ez_platform_hubspot_social:
+    path:     /hubspot/social
+    controller: EzPlatform\HubSpotBundle\Controller\SocialController:indexAction
+
+ez_platform_hubspot_social_broadcasts:
+    path:     /hubspot/social/broadcasts
+    controller: EzPlatform\HubSpotBundle\Controller\SocialController:broadcastsAction
+
+ez_platform_hubspot_social_info:
+    path:     /hubspot/social/info
+    controller: EzPlatform\HubSpotBundle\Controller\SocialController:infoAction
+
+#Settings menu
+ez_platform_hubspot_settings:
+    path:     /hubspot/settings
+    controller: EzPlatform\HubSpotBundle\Controller\SettingsController:indexAction
+
+ez_platform_hubspot_settings_api_key:
+    path:     /hubspot/settings/apikey
+    controller: EzPlatform\HubSpotBundle\Controller\SettingsController:apiKeyAction
+
+ez_platform_hubspot_settings_account_info:
+    path:     /hubspot/settings/account
+    controller: EzPlatform\HubSpotBundle\Controller\SettingsController:accountInfoAction
+
+ez_platform_hubspot_settings_info:
+    path:     /hubspot/settings/info
+    controller: EzPlatform\HubSpotBundle\Controller\SettingsController:infoAction
+
+ez_platform_hubspot_settings_account_usage:
+    path:     /hubspot/settings/usage
+    controller: EzPlatform\HubSpotBundle\Controller\SettingsController:dailyUsageAction
+
+#Content create message
+hubspot.create.content.broadcast_message:
+    path: /hubspot/create/message/{locationId}
+    requirements:
+        locationId: '\d+'
+    controller: EzPlatform\HubSpotBundle\Controller\ContentBroadcastController:createMessageAction

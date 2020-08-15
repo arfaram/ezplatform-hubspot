@@ -1,0 +1,36 @@
+{% extends "@ezdesign/ui/form_fields.html.twig" %}
+
+{% block _date_based_hubspot_options_data_apiKeyRecordData_values_widget %}
+    <div id="{{ form.vars.id }}" class="{{ form.vars.attr['class'] }}">
+        {%- for child in form %}
+            {% set getChildLabel = child.vars.label %}
+
+            {% if form.vars.attr['params'][getChildLabel]  %}
+                {% set channelName = form.vars.attr['params'][getChildLabel].channelName %}
+                {% set channelType = form.vars.attr['params'][getChildLabel].channelType %}
+
+                {% set channelIcon = '<img alt="'~ channelType ~'" src="/bundles/ezplatformhubspot/img/'~ channelType ~'.png" title="'~ channelType ~'"/>' %}
+
+                {% if form.vars.attr['params'][getChildLabel].channelAvatar %}
+                    {% set channelAvatar = '<img alt="" src="'~ form.vars.attr["params"][getChildLabel].channelAvatar ~'" class="rounded-circle hubspot-xs-icon" title="'~ form.vars.attr["params"][getChildLabel].channelType ~'"/>' %}
+                {% else %}
+                    {% set channelAvatar = '<img alt="" class="rounded-circle hubspot-xs-icon" src="/bundles/ezplatformhubspot/img/noimage.png"/>' %}
+                {% endif %}
+
+                <div class="hubspot-channels-block">
+                    <div class="hubspot-channels-block-icon">
+                        <span>{{ channelIcon|raw() }}</span>
+                    </div>
+                    <div class="hubspot-channels-block-avatar">
+                        <span>{{ channelAvatar|raw() }}</span>
+                    </div>
+
+                    {{- form_widget(child,{ 'label': channelName }) -}}
+                </div>
+            {% else %}
+                {{- form_widget(child) -}}
+            {% endif %}
+
+        {% endfor -%}
+    </div>
+{% endblock %}

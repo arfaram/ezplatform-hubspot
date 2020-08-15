@@ -1,0 +1,100 @@
+{% trans_default_domain 'hubspot' %}
+
+<div class="ez-extra-actions-container">
+    <div id="" class="ez-extra-actions ez-extra-actions--hubspot ez-extra-actions--hidden" data-actions="hubspot-content-form">
+        <p>
+            <img class="hubspot_logo hubspot_logo_content_menu" src="/bundles/ezplatformhubspot/img/hubspot_logo.png" alt="">
+        </p>
+        
+        {% if form %}
+
+            {% if sharedContentInfos %}
+                <p>{{ _self.sharedInfos(sharedContentInfos) }}</p>
+            {% endif %}
+
+            {% form_theme form '@ezdesign/ui/custom_form_fields.html.twig' %}
+
+            {{ form_start(form, {'action': path('hubspot.create.content.broadcast_message', {'locationId': locationId })}) }}
+
+            {{ form_widget(form.schedulePublishingOption) }}
+
+            <div class="ez-picker hubspot-picker">
+    {#            {{ form_label(form.flatpickr) }}#}
+                {{ form_widget(form.flatpickr) }}
+                {{ form_widget(
+                    form.timestamp,
+                    {
+                        'attr': {
+                        'class': 'ez-picker__form-input form-control',
+                        'data-seconds': 1,
+                        'id': 'block_configuration_since_custom_date'
+                    }
+                    }
+                )
+                }}
+            </div>
+
+            {{ form_label(form.apiKeyRecordData.children.values, 'hubspot.content.share.channels'|trans()|desc('Channels') ) }}
+            {{ form_widget(form.apiKeyRecordData.children.values) }}
+
+            {{ form_widget(form.location) }}
+
+            <div class="ez-extra-actions__buttons">
+                <button type="button" id="date_based_hubspot_options_data_cancel" class="btn btn-outline-dark btn-sm ez-btn ez-btn--wide ez-btn--hubspot-cancel btn-hubspot-content-action">{{ 'hubspot.cancel.button'|trans()|desc('Cancel') }}</button>
+                <button type="button" id="date_based_hubspot_options_data_save" class="btn btn-success ez-btn btn-sm ez-btn--wide ez-btn--hubspot-confirm btn-hubspot-content-action">{{ 'hubspot.confirm.button'|trans()|desc('Confirm') }}</button>
+            </div>
+            <div class="alert alert-danger later-date-error" role="alert"></div>
+
+
+            {{ form_end(form) }}
+
+            <small>
+                {{ 'hubspot.channels.post.notice'|trans()|desc('Note: <b>Draft</b> and <b>Later</b> posts can only be changed from the Hubspot interface')| raw() }}
+            </small>
+        {% else %}
+            {% if sharedContentInfos %}
+                <p>{{ _self.sharedInfos(sharedContentInfos) }}</p>
+                <small>
+                    {{ 'hubspot.channels.post.notice'|trans()|desc('Note: <b>Draft</b> and <b>Later</b> posts can only be changed from the Hubspot interface')| raw() }}
+                </small>
+            {% else %}
+                <div class="warning">
+                    <div class="alert alert-warning" role="alert">
+                        {{ 'hubspot.channels.notfound'|trans()|desc('No channels found. Please add first your Social channels in hubspot and update the API Key') }}
+                    </div>
+                </div>
+            {% endif %}
+
+        {% endif %}
+
+    </div>
+</div>
+
+{{ encore_entry_link_tags('ezplatform-admin-ui-hubspot-css', null, 'ezplatform') }}
+
+{% macro sharedInfos(sharedContentInfos) %}
+
+    <strong>{{ 'hubspot.shared.info'|trans()|desc('Shared Information') }}:</strong>
+    {% for sharedContentInfo in sharedContentInfos %}
+        <div class="hubspot-channels-block shared-info-block">
+            <div class="hubspot-channels-block-icon">
+                {% set channelIcon = '<img src="/bundles/ezplatformhubspot/img/'~ sharedContentInfo.uChannelType ~'.png" title="'~ sharedContentInfo.uChannelType ~'"/>' %}
+                <span>{{ channelIcon|raw() }}</span>
+            </div>
+            <div>
+                <strong>{{ 'hubspot.shared.content.channel.name'|trans()|desc('Channel name') }}: </strong>
+                {{ sharedContentInfo.uChannelName }}
+            </div>
+            <div>
+                <strong>{{ 'hubspot.shared.content.version'|trans()|desc('Content version') }}:</strong> {{ sharedContentInfo.version }}
+            </div>
+            <div>
+                <strong>{{ 'hubspot.shared.content.option'|trans()|desc('Option') }}:</strong> {{ sharedContentInfo.uOption }}
+            </div>
+            <div>
+                <strong>{{ 'hubspot.shared.content.action.time'|trans()|desc('Action date') }}:</strong> {{ sharedContentInfo.timestamp|ez_short_datetime}}
+            </div>
+        </div>
+    {% endfor %}
+    <hr>
+{% endmacro %}

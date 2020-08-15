@@ -1,0 +1,36 @@
+hubspot:
+    social:
+        channels:
+            error: 'An error is occured when trying to retrieve the list of social channels. For more information check the application logs'
+    invalid:
+        key:
+            error: 'The given key is invalid. For more information check the application logs'
+
+    share:
+        later: 'Share later'
+    confirm:
+        button: 'Confirm'
+    cancel:
+        button: 'Cancel'
+    channels:
+        notfound: 'No channels found. Please add first your Social channels in hubspot and update the API Key'
+        post:
+            notice: 'Note: <b>Draft</b> and <b>Later</b> posts can only be changed from the Hubspot interface'
+
+    content:
+        broadcast:
+            controllers:
+                apiChannelsData:
+                    error: 'No apiChannelsData were found for this location'
+        share:
+            channels: 'hubspot'
+
+    shared:
+        info: 'Shared Information'
+        content:
+            channel:
+                name: 'Channel name'
+            version: 'Content version'
+            option: 'Option'
+            action:
+                time: 'Action date'

@@ -1,0 +1,22 @@
+{% extends "@ezdesign/hubspot_layout.html.twig" %}
+
+{% trans_default_domain 'views' %}
+
+{% block title %}{{ 'hubspot.view.dashboard'|trans|desc('eZ Platform Hubspot Dashboard') }}{% endblock %}
+
+{% block content %}
+    <div class="row align-items-stretch ez-main-row">
+        <div class="px-0 ez-content-container">
+            <div class="container-fluid ez-main-container container mt-4 px-5">
+                {% if access_denied is defined %}
+                    {{ 'hubspot.view.access_denied'|trans|desc('You are not allowed to access this view. Please contact the website adminisrator') }}
+                {% else %}
+                    <div class="display-results">
+                        <img class="hubspot_logo" style="-webkit-user-select: none;margin: auto;" src="/bundles/ezplatformhubspot/img/hubspot_logo.png" alt="hubspot logo">
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

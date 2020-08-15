@@ -1,0 +1,12 @@
+services:
+    EzPlatform\HubSpotBundle\Controller\Controller:
+        parent: EzSystems\EzPlatformAdminUiBundle\Controller\Controller
+
+    EzPlatform\HubSpotBundle\Controller\:
+        autowire: true
+        public: true
+        resource: '../../Controller/*'
+        exclude: '../../Controller/{Controller.php}'
+        calls:
+            - [setUser, ['@EzPlatform\HubSpot\Repository\User\User']]
+            - [setPermissionResolver, ['@eZ\Publish\Core\Repository\Permission\PermissionResolver']]

@@ -1,0 +1,24 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    #Entities
+    EzPlatform\HubSpotBundle\Entity\HubSpot\ApiKey: ~
+    EzPlatform\HubSpotBundle\Entity\HubSpot\HubspotBroadcastInfo: ~
+
+    #repositories
+    EzPlatform\HubSpot\HubSpot\Repository\Storage\Doctrine\ApiKeyStorageRepository: ~
+    EzPlatform\HubSpot\HubSpot\Repository\Storage\Doctrine\HubspotBroadcastInfoRepository: ~
+
+    #Handlers
+    EzPlatform\HubSpot\HubSpot\Repository\Storage\Handler\ApiKeyStorageRepositoryHandler: ~
+    EzPlatform\HubSpot\HubSpot\Repository\Storage\Handler\HubspotBroadcastInfoRepositoryHandler: ~
+
+    #Mapper
+    EzPlatform\HubSpot\HubSpot\Repository\Storage\Mapper\HubspotBroadcastInfoRepositoryMapper: ~
+
+    #API Key create / update
+    EzPlatform\HubSpot\HubSpot\Repository\EventSubscriber\SettingsStorageSubscriber: ~
+

@@ -1,0 +1,50 @@
+hubspot:
+    view:
+        Hubspot: 'Hubspot'
+        # Desc: You are not allowed to access this view. Please contact the website adminisrator
+        access_denied: 'You are not allowed to access this view. Please contact the website adminisrator'
+
+        # Desc: eZ Platform Hubspot Dashboard
+        dashboard: 'eZ Platform Hubspot Dashboard'
+
+        # Desc: Settings
+        settings: 
+            name: 'Settings'
+            title: 'eZ Platform Hubspot Settings'
+            apikey.edit: 'Edit API Key'
+            collected_at: 'Collected at'
+            usage_limit: 'Usage limit'
+            current_usage: 'Current usage'
+            fetch_status: 'Fetch status'
+            resets_at: 'Resets at'
+            account:
+                usage: 'Daily usage'
+                info: 'Account Info'
+            api_usage_message: "his interface shows API calls an account has made for the current day. The current day is measured from midnight to midnight based on the connected account's time zone settings. The data returned returned by this endpoint will be cached for 5 minutes.  Check the fetchStatus and collectedAt fields in the response to determine if the response was from cache."
+            text: 'Interface to manage your Hubspot settings'
+
+        social:
+            name: 'Social'
+            info: 'Info'
+            title: 'eZ Platform Hubspot Social'
+            broadcasts: 'Broadcasts'
+            item_created_at: 'Created at'
+            published_at: 'Published at'
+            language_viewing: 'Viewing <strong>%viewing%</strong> out of <strong>%total%</strong> items'
+
+        portalId: 'Portal Id'
+        empty: 'No data found'
+        date_UTC: 'UTC Offset'
+        currency: 'Currency'
+        time: 'Time'
+        connection: 'Connection'
+        creator: 'Creator'
+        date: 'Date'
+
+        item_scheduled_for: 'Scheduled for'
+
+    share:
+        success: "Content '%contentName%' is shared via hubspot"
+    content:
+        share:
+            channels: 'Channels'

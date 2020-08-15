@@ -1,0 +1,96 @@
+{% extends "@ezdesign/ui/layout.html.twig" %}
+
+{% trans_default_domain 'views' %}
+
+{% block title %}{{ 'hubspot.view.settings.title'|trans|desc('eZ Platform Hubspot Settings') }}{% endblock %}
+
+{% block content %}
+    <div class="row align-items-stretch ez-main-row">
+        {% block left_sidebar %}
+            <div class="bg-dark pt-4 px-0 ez-side-menu">
+                <div class="ez-sticky-container">
+                    {% set sidebar_left = knp_menu_get('hubspot.menu.settings.sidebar_left', [], {}) %}
+                    {{ knp_menu_render(sidebar_left, {
+                        'template': '@ezdesign/ui/menu/sidebar_left.html.twig'
+                    }) }}
+                </div>
+            </div>
+        {% endblock left_sidebar %}
+
+        <div class="px-0 ez-content-container">
+            <div class="ez-header">
+                <div class="container">
+
+                    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+                        { value: 'hubspot.view.Hubspot'|trans|desc('Hubspot') },
+                        { value: 'hubspot.view.settings.name'|trans|desc('Settings'), url: path('ez_platform_hubspot_settings') },
+                        { value: 'hubspot.view.settings.account.usage'|trans|desc('Daily usage') },
+                    ]} %}
+
+                    {% include '@ezdesign/ui/page_title.html.twig' with {
+                        title: 'hubspot.view.settings.account.usage'|trans|desc('Daily usage'),
+                        iconName: 'stats'
+                    } %}
+
+                </div>
+            </div>
+            <div class="container-fluid ez-main-container container mt-4 px-5">
+
+                {% if access_denied is defined %}
+                    {{ 'hubspot.view.access_denied'|trans|desc('You are not allowed to access this view. Please contact the website adminisrator') }}
+                {% else %}
+
+                    <div class="display-results col-md-6">
+                        {% if daily_usages is defined and daily_usages %}
+                            {% for daily_usage in daily_usages %}
+                                <table class="table table-borderless">
+                                    <tbody>
+                                    <tr>
+                                        <th scope="row">{{ 'hubspot.view.settings.usage_limit'|trans|desc('Usage limit') }}</th>
+                                        <td>{{ daily_usage.usageLimit|number_format }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">{{ 'hubspot.view.settings.current_usage'|trans|desc('Current usage') }}</th>
+                                        <td>{{ daily_usage.currentUsage }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">{{ 'hubspot.view.settings.collected_at'|trans|desc('Collected at') }}</th>
+                                        <td>
+                                            {%  set timeInSecond = daily_usage.collectedAt//1000  %}
+                                            {{ timeInSecond|ez_short_datetime }}
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">{{ 'hubspot.view.settings.fetch_status'|trans|desc('Fetch status') }}</th>
+                                        <td>{{ daily_usage.fetchStatus }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">{{ 'hubspot.view.settings.resets_at'|trans|desc('Resets at') }}</th>
+                                        <td>
+                                            {%  set timeInSecond = daily_usage.resetsAt//1000  %}
+                                            {{ timeInSecond|ez_short_datetime }}
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            {% endfor %}
+                        {% else %}
+                            {{ 'hubspot.view.empty'|trans|desc('No data found') }}
+                        {% endif %}
+
+                    </div>
+
+                    <div class="alert alert-info" role="alert">
+                        <h4 class="alert-heading">Daily API usage!</h4>
+                        <p>
+                            {{ 'hubspot.view.settings.api_usage_message'|trans|desc("This interface shows API calls an account has made for the current day. The current day is measured from midnight to midnight based on the connected account's time zone settings. The data returned returned by this endpoint will be cached for 5 minutes.  Check the fetchStatus and collectedAt fields in the response to determine if the response was from cache.") }}
+                        </p>
+                    </div>
+
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+

@@ -1,0 +1,28 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    #UI first and second level navigation
+    EzPlatform\HubSpot\Repository\EventListener\HubspotMenuListener:
+        tags:
+            - { name: kernel.event_listener, event: ezplatform_admin_ui.menu_configure.main_menu, method: onMenuConfigure }
+
+    #Left Hubspot Social Menu
+    EzPlatform\HubSpot\Repository\Menu\Builder\HubspotSocialLeftSidebarBuilder:
+        tags:
+            - { name: knp_menu.menu_builder, method: build, alias: hubspot.menu.social.sidebar_left }
+
+    #Left Hubspot Settings Menu
+    EzPlatform\HubSpot\Repository\Menu\Builder\HubspotSettingsLeftSidebarBuilder:
+        tags:
+            - { name: knp_menu.menu_builder, method: build, alias: hubspot.menu.settings.sidebar_left }
+
+    #Right Hubspot API Setting edit Menu
+    EzPlatform\HubSpot\Repository\Menu\Builder\HubspotApiSettingEditRightSidebarBuilder:
+        tags:
+            - { name: knp_menu.menu_builder, method: build, alias: hubspot.menu_configure.settings.sidebar_right_edit }
+
+    #Extend content right sidebar , this time using EventSubscriber
+    EzPlatform\HubSpot\Repository\EventSubscriber\Menu\ContentSidebarRightSubscriber: ~

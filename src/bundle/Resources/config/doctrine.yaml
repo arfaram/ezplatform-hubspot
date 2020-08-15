@@ -1,0 +1,11 @@
+orm:
+    entity_managers:
+        hubspot:
+            connection: default
+            mappings:
+                EzPlatformHubSpotBundle:
+                    is_bundle: true
+                    type: annotation
+                    dir: 'Entity/HubSpot'
+                    prefix: 'EzPlatform\HubSpotBundle\Entity'
+                    alias: 'Hubspot'

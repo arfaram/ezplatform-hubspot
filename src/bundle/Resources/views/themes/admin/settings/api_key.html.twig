@@ -1,0 +1,102 @@
+{% extends "@ezdesign/ui/layout.html.twig" %}
+
+{% trans_default_domain 'views' %}
+
+{% form_theme form '@ezdesign/ui/form_fields.html.twig'  %}
+
+{% block title %}{{ 'hubspot.view.settings.title'|trans|desc('eZ Platform Hubspot Settings') }}{% endblock %}
+
+{% block content %}
+    <div class="row align-items-stretch ez-main-row">
+        {% block left_sidebar %}
+            <div class="bg-dark pt-4 px-0 ez-side-menu">
+                <div class="ez-sticky-container">
+                    {% set sidebar_left = knp_menu_get('hubspot.menu.settings.sidebar_left', [], {}) %}
+                    {{ knp_menu_render(sidebar_left, {
+                        'template': '@ezdesign/ui/menu/sidebar_left.html.twig'
+                    }) }}
+                </div>
+            </div>
+        {% endblock left_sidebar %}
+
+        <div class="px-0 ez-content-container">
+            <div class="ez-header">
+                <div class="container">
+
+                    {% include '@ezdesign/ui/breadcrumbs.html.twig' with { items: [
+                        { value: 'hubspot.view.Hubspot'|trans|desc('Hubspot') },
+                        { value: 'hubspot.view.settings.name'|trans|desc('Settings'), url: path('ez_platform_hubspot_settings') },
+                        { value: 'hubspot.view.settings.apikey.edit'|trans|desc('Edit API Key') },
+                    ]} %}
+
+                    {% include '@ezdesign/ui/page_title.html.twig' with {
+                        title: 'hubspot.view.settings.apikey.edit'|trans|desc('Edit API Key'),
+                        iconName: 'edit'
+                    } %}
+
+                </div>
+            </div>
+            <div class="container-fluid ez-main-container container mt-4 px-5">
+
+                {% if access_denied is defined %}
+                    {{ 'hubspot.view.access_denied'|trans|desc('You are not allowed to access this view. Please contact the website adminisrator') }}
+                {% else %}
+
+                    <div class="display-results col-md-6">
+                        <div class="form-group ">
+
+                            {{ form_start(
+                                form,
+                                {
+                                    'action': path('ez_platform_hubspot_settings_api_key'),
+                                    'method': 'POST',
+                                    'attr': {'novalidate': 'novalidate'}
+                                }
+                            )
+                            }}
+
+                            {{ form_row(form.apiKey) }}
+
+                            <div class="form-group">
+                                <button type="submit" id="key-save" hidden></button>
+                            </div>
+
+                            {{ form_end(form) }}
+
+                            <small>{{ 'required'|trans|desc('* Required') }}</small>
+                        </div>
+
+                        {% if userId %}
+                        <table class="table table-borderless">
+                            <tbody>
+                            <tr>
+                                <th scope="row">{{ 'hubspot.view.creator'|trans|desc('Creator') }}</th>
+                                <td>{{ userId }}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">{{ 'hubspot.view.date'|trans|desc('Date') }}</th>
+                                <td>{{ date|ez_short_datetime }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        {% endif %}
+
+                    </div>
+
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="pt-4 px-0 bg-secondary ez-context-menu">
+            {% set url_create_sidebar_right = knp_menu_get('hubspot.menu_configure.settings.sidebar_right_edit', [], {
+                'submit_selector': '#key-save',
+            }) %}
+
+            {{ knp_menu_render(url_create_sidebar_right, {
+                'template': '@ezdesign/ui/menu/sidebar_right.html.twig'
+            }) }}
+        </div>
+    </div>
+{% endblock %}
+
+

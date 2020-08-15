@@ -1,0 +1,64 @@
+.hubspot_logo{
+    width: 20%;
+    border-radius: 10px;
+}
+
+.hubspot-info-avatar{
+    width: 50px;
+}
+
+.ez-extra-actions--hubspot{
+    overflow: auto;
+}
+
+.hubspot_logo_content_menu{
+    margin: auto;
+    padding: 0;
+    display: block;
+}
+
+.hubspot-xs-icon{
+    width: 30px;
+}
+
+.hubspot-channels-block{
+    background: #F5F5F5;
+    padding: 10px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.hubspot-channels-block-avatar{
+    padding-top: 15px;
+    position: relative;
+    float: right;
+    top: -20px;
+}
+
+.hubspot-channels-block-icon{
+    width: 30px;
+}
+
+.hubspot-picker{
+    display: none
+}
+
+.later-date-error{
+    display: none;
+    font-size: 0.8rem;
+    margin-top: 5px;
+    padding: 0.2rem 1rem;
+}
+
+.btn-hubspot-content-action{
+    margin-left: 1rem;
+    padding: 0.4rem 2.5rem !important;
+}
+
+.shared-info-block{
+    font-size: 0.8rem;
+}
+
+.shared-info-block p{
+    margin-bottom: 0.5rem;
+}

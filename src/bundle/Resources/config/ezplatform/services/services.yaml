@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    #get current user information for some DB update
+    EzPlatform\HubSpot\Repository\User\User: ~
+
+    #Get ContentType configuration using ConfigResolver
+    EzPlatform\HubSpot\Repository\Resolver\ContentTypesBroadcastsResolver: ~
+    #Get Hubspot channels from the DB and map to the configuration. Only configured channels will be displayed. Add new channel configuration in yaml to access more channels.
+    EzPlatform\HubSpot\Repository\Resolver\HubspotChannelsAndConfigResolver: ~
+    #Already published Content filter. If content already shared, it will prevent to share it again. This will filter already content info in DB with the channels to share also saved in DB
+    EzPlatform\HubSpot\Repository\Resolver\PublishedContentResolver: ~
+
+    EzPlatform\HubSpot\Repository\Helper\:
+        resource: '../../../../../lib/Repository/Helper/*'
