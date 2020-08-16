@@ -54,7 +54,7 @@ class HubSpotConfigParser extends AbstractParser
                                 ->useAttributeAsKey('channel')
                                 ->arrayPrototype()
                                     ->children()
-                                        ->scalarNode('body')->isRequired()->end()
+                                        ->scalarNode('body')->end()
                                         ->scalarNode('photoUrl')->end()
                                         ->booleanNode('enabled')->defaultFalse()->end()
     //                                    ->arrayNode('channels')
