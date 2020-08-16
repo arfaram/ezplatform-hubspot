@@ -85,7 +85,11 @@ class ContentMapping
             if (empty($value['body'])) { //ezstring & empty
                 $value['body'] = null;
             }
-            $value['photoUrl'] = $baseUrl . $this->getImageField($content, $value['photoUrl']);
+
+            if(array_key_exists('photoUrl',$value)){
+                $value['photoUrl'] = $baseUrl . $this->getImageField($content, $value['photoUrl']);
+            }
+
             unset($value['enabled']);
 
             $broadcasts[$key] = $value;
