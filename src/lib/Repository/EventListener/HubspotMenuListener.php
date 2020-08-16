@@ -73,6 +73,7 @@ class HubspotMenuListener implements TranslationContainerInterface
                         'translation_domain' => 'menu',
                         'routes' => [
                             'broadcasts' => 'ez_platform_hubspot_social_broadcasts',
+                            'info' => 'ez_platform_hubspot_social_info',
                         ],
                     ],
                 ]
