@@ -12,6 +12,8 @@ namespace EzPlatform\HubSpot\Repository\Helper;
 use eZ\Publish\API\Repository\ContentService;
 use eZ\Publish\API\Repository\LocationService;
 use eZ\Publish\API\Repository\Values\Content\Location;
+use eZ\Publish\Core\Base\Exceptions\NotFound\FieldTypeNotFoundException;
+use eZ\Publish\Core\Base\Exceptions\NotFoundException;
 use EzPlatform\HubSpot\Repository\Resolver\ContentTypesBroadcastsResolver;
 
 /**
@@ -64,7 +66,7 @@ class ContentMapping
     {
         $broadcasts =  $this->contentTypesBroadcastsResolver->resolver($content);
         if (!$broadcasts) {
-            return false;
+            return null;
         }
 
         return $this->mapFields($broadcasts, $content, $baseUrl);
@@ -80,17 +82,33 @@ class ContentMapping
     private function mapFields($broadcasts, $content, $baseUrl): iterable
     {
         foreach ($broadcasts as $key => $value) {
-            /** @var \eZ\Publish\Core\FieldType\TextLine\Value $content */
-            $value['body'] = $content->getFieldValue($value['body'])->text ?? null; // not ezstring
-            if (empty($value['body'])) { //ezstring & empty
-                $value['body'] = null;
+            if (!array_key_exists('body', $value) && !array_key_exists('photoUrl', $value)) {
+                throw new \Exception('At least one of the following fields should be configured: body, photoUrl.');
+            }
+            if (array_key_exists('body', $value)) {
+                if (!$content->getContentType()->hasFieldDefinition($value['body'])) {
+                    throw new FieldTypeNotFoundException($value['body']);
+                }
+                /**
+                 * @todo check if supported field
+                 * @var \eZ\Publish\API\Repository\Values\Content\Content $content
+                 */
+                $value['body'] = $content->getFieldValue($value['body'])->text ?? null; // not ezstring
             }
 
-            if(array_key_exists('photoUrl',$value)){
-                $value['photoUrl'] = $baseUrl . $this->getImageField($content, $value['photoUrl']);
+            if (array_key_exists('photoUrl', $value)) {
+                if (!$content->getContentType()->hasFieldDefinition($value['photoUrl'])) {
+                    throw new FieldTypeNotFoundException($value['photoUrl']);
+                }
+                $isImage = $this->getImageField($content, $value['photoUrl']);
+                $value['photoUrl'] = $isImage;
             }
 
             unset($value['enabled']);
+
+            if (!count(array_filter($value))) {
+                throw new \Exception('At least one of the following fields should have a value: body, photoUrl.');
+            }
 
             $broadcasts[$key] = $value;
         }
