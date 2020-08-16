@@ -53,3 +53,9 @@ composer dumpautoload
 php bin/console c:c -e dev
 php bin/console c:c -e prod
 ```
+
+### Run webpack
+
+```
+yarn encore dev
+```
