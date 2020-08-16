@@ -24,7 +24,8 @@ This bundle supports and was tested with below providers
 [License](LICENSE)
 
 ## How it works
-
+click image below to watch the youtube video
+ 
 [![YouTube](doc/images/content.png)](https://bit.ly/2CoMqn9)
 
 
