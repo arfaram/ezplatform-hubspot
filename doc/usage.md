@@ -9,7 +9,7 @@
 - `Text Line` (ezstring): The text to share
 - `Image` (ezimage) and `ImageAsset` (ezimageasset): The image to share
 
-2.Configure the `body` and the `photoUrl` using the FieldType identifiers.
+2.Configure the `body` or/and the `photoUrl` using valid FieldType identifiers. Note that both field **values** (text or image to share) must not be empty.
 
 3.You can enable or disable any providers via the `enabled` option. The channel will be then displayed or hidden from the context menu in the right content view sidebar.
 
